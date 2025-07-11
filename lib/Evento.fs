@@ -79,6 +79,17 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ")
 
+let giti:unit = //
+    File.WriteAllText(".gitignore","""*~
+*.swp
+*.log
+*.o
+*.exe
+node_modules/
+/target/
+/obj/
+!.gitignore
+""")
 
 // github repo
 let SHELL = $"cd {CWD}"
@@ -191,39 +202,49 @@ registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
 """)
     let CFG = "meld .cargo/config.toml ~/em/.cargo/config.toml"
 
+let rsbin name = //
+    $"\n[[bin]]\npath = \"src/{name}.rs\"\nname = \"{name}\"\n"
+let rslib name = //
+    $"\n[lib]\npath = \"src/{name}.rs\"\ncrate-type = [\"cdylib\"]\nname = \"{name}\"\n"
+
 let workspace name =
     mkdir name ; mkdir $"{name}/src"
-    let extra = match name with 
-                | "config" -> "[dependencies]\nconst_format = \"0.2\""
-                | _ -> ""
-    let descr = match name with 
+    let descr = match name with
                 | "config" -> "shared configuration"
+                | "vm" -> "virtual machine"
+                | "server" -> "local-host backend"
+                | "firmware" -> "MCU firmware"
                 | _ -> ""
+    let libin = match name with
+                | "server" -> rsbin name
+                | _ -> rslib name
+    let deps = match name with 
+                | "config" -> "\nconst_format = \"0.2\"\n"
+                | _ -> "config = {path=\"../config\"}\n"
     File.WriteAllText ($"{name}/src/{name}.rs",$"//! {descr}\n//\n")
     File.WriteAllText ( $"{name}/Cargo.toml", $"\
 [package]
-name        =  \"{app}-{name}\"
+name        =  \"{name}\"
 version     =  \"{VERSION}\"
 description =  \"{TITLE} /{descr}/\"
 authors     = [\"{AUTHOR} <{EMAIL}>\"]
 license     =  \"{LICENSE}\"
 repository  =  \"{GITHUB}\"
 edition     =  \"2024\"
-
-{extra}
+{libin}
+[dependencies]
+{deps}
 ")
 workspace "config"
 
 let config: uint = //
     workspace "config"
-
 let server: uint = //
-    mkdir "server" ; mkdir "server/src" ; touch "config/src/server.rs"
+    workspace "server"
 let firmware: uint = //
-    mkdir "firmware" ; mkdir "firmware/src"
-    touch "firmware/src/main.rs" ; touch "firmware/src/lib.rs"
+    workspace "firmware"
 let vm: uint = //
-    mkdir "vm" ; mkdir "vm/src"
+    workspace "vm"
 
 let rust: unit = //
     cargo_config
@@ -242,7 +263,8 @@ repository  =  \"{GITHUB}\"
 edition     =  \"2024\"
 
 [workspace]
-members = [\"config\",\"server\",\"firmware\",\"vm\"]
+members  = [\"config\",\"server\",\"firmware\",\"vm\"]
+resolver = \"2\"
 
 [dependencies]
 const_format = \"0.2\"
@@ -401,17 +423,6 @@ let cmake: unit = //
     for cm in cmakes do
         touch $"cmake/{cm}.cmake"
 
-let giti:unit = //
-    File.WriteAllText(".gitignore","""*~
-*.swp
-*.log
-*.o
-*.exe
-node_modules/
-/target/
-/obj/
-!.gitignore
-""")
 
 let apt:unit = //
     File.WriteAllText ("apt.Debian","""git make curl

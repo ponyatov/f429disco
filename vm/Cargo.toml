@@ -1,16 +1,16 @@
 [package]
-name        =  "config"
+name        =  "vm"
 version     =  "0.0.1"
-description =  "STM32F429I-DISC1: BSP & REPL in Rust /shared configuration/"
+description =  "STM32F429I-DISC1: BSP & REPL in Rust /virtual machine/"
 authors     = ["Dmitry Ponyatov <dponyatov@gmail.com>"]
 license     =  "MIT"
 repository  =  "https://github.com/ponyatov/f429disco"
 edition     =  "2024"
 
 [lib]
-path = "src/config.rs"
+path = "src/vm.rs"
 crate-type = ["cdylib"]
-name = "config"
+name = "vm"
 
 [dependencies]
-const_format = "0.2"
+config = {path="../config"}

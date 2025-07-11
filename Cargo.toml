@@ -9,6 +9,7 @@ edition     =  "2024"
 
 [workspace]
 members = ["config","server","firmware","vm"]
+resolver = "2"
 
 [dependencies]
 const_format = "0.2"
