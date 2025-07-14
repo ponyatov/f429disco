@@ -383,6 +383,44 @@ let cross:unit = //
     arch
     os
 
+let settings:unit = //
+    File.WriteAllText ( ".vscode/settings.json","""{
+    "files.exclude": {
+        "doc/html": true, "**/node_modules/**": true,
+    },
+    "files.watcherExclude": {
+        "bin/**": true, "tmp/**": true, "ref/**": true,
+        "target/**": true, "obj/**": true,
+    },
+    "files.associations": {
+        "*.mk": "makefile", "*.make": "makefile",
+        "*.s": "arm", "*.s.fix": "arm", "*.S": "arm",
+        "*.ld": "linkerscript", "*.ld.fix": "linkerscript",
+        "*.ioc": "properties", "*.ocd": "properties",
+        "*.kernel": "properties", "*.config": "properties",
+        "*.service": "systemd-unit-file",
+        "requirements.*": "properties",
+        "*.ini": "properties", "*.f": "properties",
+    },
+
+    // editor
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80],
+    "editor.lineNumbers": "on",
+    "editor.formatOnSave":  false,
+    "workbench.tree.indent": 24,
+    "editor.fontSize": 14,
+    "explorer.autoReveal": false,
+    "terminal.integrated.copyOnSelection": true,
+    // "git.enabled": false,
+}
+""")
+
 let vscode:unit = //
     mkdir ".vscode"
     let jsons = [
@@ -393,6 +431,7 @@ let vscode:unit = //
         "tasks" ]
     for j in jsons do
         File.WriteAllText($".vscode/{j}.json","{\n}\n")
+    settings
     let MELD = "meld .vscode ~/em/.vscode"
 
 let dirs:unit = //
