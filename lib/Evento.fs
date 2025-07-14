@@ -205,7 +205,8 @@ registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
 let rsbin name = //
     $"\n[[bin]]\npath = \"src/{name}.rs\"\nname = \"{name}\"\n"
 let rslib name = //
-    $"\n[lib]\npath = \"src/{name}.rs\"\ncrate-type = [\"cdylib\"]\nname = \"{name}\"\n"
+    $"\n[lib]\npath = \"src/{name}.rs\"\nname = \"{name}\"\n"
+    // crate-type = [\"cdylib\"]\n
 
 let workspace name =
     mkdir name ; mkdir $"{name}/src"
@@ -219,7 +220,7 @@ let workspace name =
                 | "server" -> rsbin name
                 | _ -> rslib name
     let deps = match name with 
-                | "config" -> "\nconst_format = \"0.2\"\n"
+                | "config" -> "const_format = \"0.2\"\n"
                 | _ -> "config = {path=\"../config\"}\n"
     File.WriteAllText ($"{name}/src/{name}.rs",$"//! {descr}\n//\n")
     File.WriteAllText ( $"{name}/Cargo.toml", $"\

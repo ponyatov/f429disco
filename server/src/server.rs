@@ -2,5 +2,5 @@
 //
 
 fn main() {
-    println!("port:{port}",port=config::PORT);
+    println!("port:{port}", port = config::PORT);
 }
