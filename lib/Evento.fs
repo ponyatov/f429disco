@@ -421,6 +421,43 @@ let settings:unit = //
 }
 """)
 
+let tasks:unit = //
+    File.WriteAllText ( ".vscode/tasks.json","""{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label"          : "project: install",
+            "type"           : "shell",
+            "command"        : "make install",
+            "presentation"   : {"focus": true},
+            "problemMatcher" : []
+        },
+        {
+            "label"          : "project: update",
+            "type"           : "shell",
+            "command"        : "make update",
+            "presentation"   : {"focus": true},
+            "problemMatcher" : []
+        },
+        {
+            "label"          : "git: checkout .vscode",
+            "type"           : "shell",
+            "command"        : "git checkout .vscode/settings.json",
+            "presentation"   : {"showReuseMessage": false, "focus": false, "reveal": "silent", "close": true},
+            "problemMatcher" : []
+        },
+        {
+            "label"          : "AI: context",
+            "type"           : "shell",
+            "command"        : "make ai",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": true, "focus": true, "reveal": "silent", "close": false},
+            "group"          : {"kind": "build", "isDefault": true}
+        },
+    ]
+}
+""")
+
 let vscode:unit = //
     mkdir ".vscode"
     let jsons = [
@@ -431,7 +468,7 @@ let vscode:unit = //
         "tasks" ]
     for j in jsons do
         File.WriteAllText($".vscode/{j}.json","{\n}\n")
-    settings
+    settings ; tasks
     let MELD = "meld .vscode ~/em/.vscode"
 
 let dirs:unit = //
