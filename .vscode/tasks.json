@@ -39,5 +39,50 @@
             "group"          : {"kind": "build", "isDefault": true },
             "presentation"   : {"showReuseMessage": true, "focus": true, "reveal": "silent", "close": false}
         },
+        {
+            "label"          : "cargo: f429disco",
+            "type"           : "shell",
+            "command"        : "cargo",
+            "args"           : ["build","--features","f429disco","--target","thumbv7em-none-eabihf"],
+            "options"        : {"cwd": "${workspaceFolder}"},
+            "problemMatcher" : ["$rustc"],
+            "group"          : {"kind": "build", "isDefault": true },
+            "presentation"   : {"showReuseMessage": true, "focus": true, "reveal": "silent", "close": false}
+        },
+        {
+            "label"          : "ts: watch",
+            "type"           : "shell",
+            "command"        : "tsc --watch",
+            "problemMatcher" : [],
+            "group"          : {"kind": "build", "isDefault": true },
+            "presentation"   : {"showReuseMessage": true, "focus": false, "reveal": "silent", "close": false}
+        },
+        {
+            "label"          : "openocd: debug",
+            "type"           : "shell",
+            "dependsOn"      : "CMake: build",
+            "command"        : "openocd -f hw/${command:cmake.activeConfigurePresetName}/${command:cmake.activeConfigurePresetName}.ocd",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": false, "focus": false, "reveal": "silent", "close": true},
+            "group"          : {"kind": "build", "isDefault": false }
+        },
+        {
+            "label"          : "openocd: firmware",
+            "type"           : "shell",
+            "group"          : {"kind": "build", "isDefault": false },
+            "dependsOn"      : "CMake: build",
+            "command"        : "openocd -f hw/${command:cmake.activeConfigurePresetName}/${command:cmake.activeConfigurePresetName}.ocd -c \"program ${command:cmake.launchTargetPath} verify reset exit\"",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": false, "focus": true, "reveal": "silent", "close": false}
+        },
+        {
+            "label"          : "doxy: gen",
+            "type"           : "shell",
+            "group"          : {"kind": "build", "isDefault": true },
+            "dependsOn"      : "CMake: build",
+            "command"        : "make doxy",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": false, "focus": true, "reveal": "silent", "close": false}
+        },
     ]
 }
