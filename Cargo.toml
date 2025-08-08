@@ -54,12 +54,14 @@ stm32f407vg             = ["stm32f4"]
 stm32f429zi             = ["stm32f4"]
 stm32l496ag             = ["stm32l4"]
 # series
+stm32f1                 = ["cortexm3"]
 stm32f4                 = ["cortexm4"]
 stm32l4                 = ["cortexm4"]
 # arch
 x86_64                  = ["linux"]
 aarch64                 = ["linux"]
 cortexm                 = ["none"]
+cortexm3                = ["cortexm"]
 cortexm4                = ["cortexm"]
 # os
 linux                   = []
