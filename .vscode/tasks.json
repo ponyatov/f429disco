@@ -36,7 +36,7 @@
             "label"          : "cargo: f429disco",
             "type"           : "shell",
             "command"        : "cargo",
-            "args"           : ["build","--features","f429disco","--target","thumbv7em-none-eabihf"],
+            "args"           : ["watch","-x","run --bin main --features=f429disco --target thumbv7em-none-eabihf"],
             "options"        : {"cwd": "${workspaceFolder}"},
             "problemMatcher" : ["$rustc"],
             "group"          : {"kind": "build", "isDefault": true },
