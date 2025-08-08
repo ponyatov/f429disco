@@ -22,8 +22,8 @@ required-features       = ["f429disco"]
 # path                  =  "src/lib.rs"
 
 [dependencies]
-# const_format          = "0.2"
-# nom                   = "8.0"
+const_format            = "0.2"
+nom                     = "8.0"
 
 [target.'cfg(all(target_os = "linux"))'.dependencies]
 libc                    = "0.2"

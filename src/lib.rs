@@ -16,24 +16,21 @@ pub const Rsz: usize = 0x100;
 /// data stack size, cells
 pub const Dsz: usize = 0x10;
 
-/// platform-specific hello function
-#[cfg(target_os = "linux")]
-pub fn hello() {
-    println!(
-        "f429disco Virtual FORTH Machine Msz:{}K Rsz:{} Dsz:{}",
-        Msz / 1024,
-        Rsz,
-        Dsz
-    );
-}
+pub const ABOUT: &str = const_format::formatcp!(
+    "Virtual FORTH Machine Msz:{}K Rsz:{} Dsz:{}",
+    Msz / 1024,
+    Rsz,
+    Dsz
+);
 
-#[cfg(all(target_arch = "arm", target_os = "none"))]
-pub fn hello() {
-    use cortex_m_semihosting::hprintln;
-    hprintln!(
-        "f429disco Virtual FORTH Machine Msz:{}K Rsz:{} Dsz:{}",
-        Msz / 1024,
-        Rsz,
-        Dsz
-    ).unwrap();
-}
+pub const VERSION: &str = const_format::formatcp!(
+    "{}.{}.{}",
+    env!("CARGO_PKG_VERSION_MAJOR"),
+    env!("CARGO_PKG_VERSION_MINOR"),
+    env!("CARGO_PKG_VERSION_PATCH")
+);
+
+pub const AUTHOR: &str = "Dmitry Ponyatov";
+pub const EMAIL: &str = "dponyatov@gmail.com";
+pub const YEAR: &str = "2025";
+pub const LICENSE: &str = "MIT";

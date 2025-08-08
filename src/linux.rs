@@ -1,5 +1,6 @@
 use f429disco::*;
 
 fn main() {
-    println!(hello());
+    println!("{} ver:{}", ABOUT, VERSION);
+    println!("(c) {} <{}> {} {}", AUTHOR, EMAIL, YEAR, LICENSE,);
 }
