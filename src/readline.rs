@@ -9,7 +9,6 @@ pub struct ReadLine<const N: usize> {
 #[cfg(feature="linux")]
 use termion::raw::IntoRawMode;
 
-
 const BACKSPACE: char = '\x08';
 const DEL: char = '\x7f';
 
@@ -69,7 +68,7 @@ impl<const N: usize> ReadLine<N> {
         print!("{}", prompt);
         
         #[cfg(feature="linux")]
-        let raw = std::io::stdout().into_raw_mode().ok()}
+        let raw = std::io::stdout().into_raw_mode().ok();
 
         loop {
             if let Some(ch) = Self::getchar() {
@@ -77,8 +76,8 @@ impl<const N: usize> ReadLine<N> {
                     println!();
                     return Some(line);
                 }
-                let buffer = self.buffer().to_owned();
-                print!("\r{}{}\x1b[K", prompt, buffer);
+                // let buffer = self.buffer().to_owned();
+                // print!("\r{}{}\x1b[K", prompt, buffer);
             }
         }
     }
