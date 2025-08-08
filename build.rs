@@ -11,7 +11,7 @@ const MEMORY_X: &str = "hw/netduinoplus2/netduinoplus2.x";
 #[cfg(feature = "iskra")]
 const MEMORY_X: &str = "hw/iskra/iskra.x";
 #[cfg(all(feature = "pc", feature = "i386", feature = "none"))]
-const MEMORY_X: &str = "hw/pc/pc.x";
+const MEMORY_X: &str = "hw/qemu386/qemu386.x";
 #[cfg(feature = "linux")]
 const MEMORY_X: &str = "os/linux/linux.x";
 
