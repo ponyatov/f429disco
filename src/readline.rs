@@ -55,4 +55,22 @@ impl<const N: usize> ReadLine<N> {
     pub fn cursor(&self) -> usize {
         self.cursor
     }
+
+    pub fn readline(&mut self, prompt: &str) -> Option<&str> {
+        print!("{}", prompt);
+        loop {
+            if let Some(ch) = self.getchar() {
+                if let Some(line) = self.input(ch) {
+                    println!();
+                    return Some(line);
+                }
+                print!("\r{}{}\x1b[K", prompt, self.buffer());
+            }
+        }
+    }
+
+    fn getchar(&self) -> Option<char> {
+        // Platform-specific character input - stub for now
+        None
+    }
 }
