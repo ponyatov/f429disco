@@ -1,0 +1,46 @@
+[package]
+name                =  "f429disco"
+version             =  "0.0.1"
+description         =  "STM32F429I-DISC1: BSP & REPL in Rust"
+authors             = ["Dmitry Ponyatov <dponyatov@gmail.com>"]
+license             =  "MIT"
+repository          =  "https://github.com/ponyatov/f429disco"
+edition             =  "2024"
+
+[[bin]]
+name                = "main"
+path                = "src/main.rs"
+
+[lib]
+name                =  "lib"
+path                =  "src/lib.rs"
+
+[dependencies]
+const_format        = "0.2"
+nom                 = "8.0"
+
+[target.'cfg(all(target_os = "linux"))'.dependencies]
+libc                = "0.2"
+memmap2             = "0.9"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))'.dependencies]
+cortex-m            = "0.7"
+cortex-m-rt         = "0.7"
+panic-semihosting   = "0.6"
+
+[features]
+# hw
+pc                  = ["i5"]
+f429disco           = ["stm32f429zi"]
+# cpu
+i5                  = ["x86_64"]
+stm32f429zi         = ["stm32f4"]
+# series
+stm32f4             = ["cortexm4"]
+# arch
+x86_64              = ["linux"]
+cortexm             = ["none"]
+cortexm4            = ["cortexm"]
+# os
+linux               = []
+none                = []
