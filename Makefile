@@ -12,5 +12,3 @@ include mk/rust.mk
 include mk/gz.mk
 include mk/ref.mk
 include mk/install.mk
-
-touch hw/f429disco/f429disco.{mk,cmake}
