@@ -38,14 +38,27 @@ panic-semihosting       = "0.6"
 [features]
 # hw
 pc                      = ["i5"]
+opi800                  = ["rk3399"]
+netduinoplus2           = ["stm32f405rg"]
+iskra                   = ["stm32f405rg"]
+f4disco                 = ["stm32f407vg"]
 f429disco               = ["stm32f429zi"]
+l496disco               = ["stm32l496ag"]
+pillf103                = ["stm32f103c8"]
 # cpu
 i5                      = ["x86_64"]
+rk3399                  = ["aarch64"]
+stm32f103c8             = ["stm32f1"]
+stm32f405rg             = ["stm32f4"]
+stm32f407vg             = ["stm32f4"]
 stm32f429zi             = ["stm32f4"]
+stm32l496ag             = ["stm32l4"]
 # series
 stm32f4                 = ["cortexm4"]
+stm32l4                 = ["cortexm4"]
 # arch
 x86_64                  = ["linux"]
+aarch64                 = ["linux"]
 cortexm                 = ["none"]
 cortexm4                = ["cortexm"]
 # os
