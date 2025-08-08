@@ -8,8 +8,14 @@ repository          =  "https://github.com/ponyatov/f429disco"
 edition             =  "2024"
 
 [[bin]]
-name                = "main"
-path                = "src/main.rs"
+name                = "linux"
+path                = "src/linux.rs"
+required-features   = ["pc"]
+
+[[bin]]
+name                = "f429disco"
+path                = "src/f429disco.rs"
+required-features   = ["f429disco"]
 
 # [lib]
 # name                =  "lib"
