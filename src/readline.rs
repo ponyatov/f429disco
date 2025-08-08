@@ -59,18 +59,24 @@ impl<const N: usize> ReadLine<N> {
     pub fn readline(&mut self, prompt: &str) -> Option<&str> {
         print!("{}", prompt);
         loop {
-            if let Some(ch) = self.getchar() {
+            if let Some(ch) = Self::getchar() {
                 if let Some(line) = self.input(ch) {
                     println!();
                     return Some(line);
                 }
-                print!("\r{}{}\x1b[K", prompt, self.buffer());
+                let buffer = self.buffer().to_owned();
+                print!("\r{}{}\x1b[K", prompt, buffer);
             }
         }
     }
 
-    fn getchar(&self) -> Option<char> {
-        // Platform-specific character input - stub for now
-        None
+    #[cfg(feature="linux")]
+    fn getchar() -> Option<char> {
+        use std::io::{stdin, Read};
+        use termion::raw::IntoRawMode;
+        let _raw = std::io::stdout().into_raw_mode().ok()?;
+        let mut buffer = [0; 1];
+        stdin().read_exact(&mut buffer).ok()?;
+        Some(buffer[0] as char)
     }
 }

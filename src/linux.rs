@@ -5,7 +5,7 @@ fn main() {
     println!("{} ver:{}", ABOUT, VERSION);
     println!("(c) {} <{}> {} {}", AUTHOR, EMAIL, YEAR, LICENSE,);
     loop {
-        let cmd = readline::readline(">>> ");
+        let cmd = readline::readline(">>> ").unwrap();
         println!("command was: <{}>",cmd);
     }
 }

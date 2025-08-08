@@ -28,6 +28,7 @@ nom                     = { version = "8.0", default-features = false, features 
 [target.'cfg(all(target_os = "linux"))'.dependencies]
 libc                    = "0.2"
 memmap2                 = "0.9"
+termion                 = "4.0"
 
 [target.'cfg(all(target_arch = "arm", target_os = "none"))'.dependencies]
 cortex-m                = "0.7"
