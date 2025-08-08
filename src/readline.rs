@@ -6,6 +6,9 @@ pub struct ReadLine<const N: usize> {
     cursor: usize,
 }
 
+const BACKSPACE: char = '\x08';
+const DEL: char = '\x7f';
+
 impl<const N: usize> ReadLine<N> {
     pub fn new() -> Self {
         Self {
@@ -23,7 +26,8 @@ impl<const N: usize> ReadLine<N> {
                 self.cursor = 0;
                 result
             }
-            '\x08' | '\x7f' => { // Backspace/DEL
+            BACKSPACE | DEL => {
+                // Backspace/DEL
                 if self.cursor > 0 {
                     self.cursor -= 1;
                     self.len -= 1;
@@ -56,8 +60,16 @@ impl<const N: usize> ReadLine<N> {
         self.cursor
     }
 
+    fn to_raw(&self) {
+        use std::io::{Read, stdin};
+        use termion::raw::IntoRawMode;
+        let _raw = std::io::stdout().into_raw_mode().ok()?;
+    }
+
     pub fn readline(&mut self, prompt: &str) -> Option<&str> {
         print!("{}", prompt);
+        self.to_raw();
+
         loop {
             if let Some(ch) = Self::getchar() {
                 if let Some(line) = self.input(ch) {
@@ -70,12 +82,9 @@ impl<const N: usize> ReadLine<N> {
         }
     }
 
-    #[cfg(feature="linux")]
+    #[cfg(feature = "linux")]
     fn getchar() -> Option<char> {
-        use std::io::{stdin, Read};
-        use termion::raw::IntoRawMode;
-        let _raw = std::io::stdout().into_raw_mode().ok()?;
-        let mut buffer = [0; 1];
+        let mut buffer: [u8; 1] = [0; 1];
         stdin().read_exact(&mut buffer).ok()?;
         Some(buffer[0] as char)
     }
