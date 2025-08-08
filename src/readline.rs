@@ -60,10 +60,20 @@ impl<const N: usize> ReadLine<N> {
         self.cursor
     }
 
+    /// set raw mode for console
+    #[cfg(feature="linux")]
     fn to_raw(&self) {
         use std::io::{Read, stdin};
         use termion::raw::IntoRawMode;
         let _raw = std::io::stdout().into_raw_mode().ok()?;
+    }
+
+    /// return to normal mode console
+    #[cfg(feature="linux")]
+    fn from_raw(&self) {
+        use std::io::{Read, stdin};
+        use termion::raw::IntoRawMode;
+        let _normal = std::io::stdout().into_normal_mode.ok()?;
     }
 
     pub fn readline(&mut self, prompt: &str) -> Option<&str> {
@@ -73,6 +83,7 @@ impl<const N: usize> ReadLine<N> {
         loop {
             if let Some(ch) = Self::getchar() {
                 if let Some(line) = self.input(ch) {
+                    self.from_raw();
                     println!();
                     return Some(line);
                 }
