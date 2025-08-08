@@ -10,8 +10,10 @@ const MEMORY_X: &str = "hw/l496disco/l496disco.x";
 const MEMORY_X: &str = "hw/netduinoplus2/netduinoplus2.x";
 #[cfg(feature = "iskra")]
 const MEMORY_X: &str = "hw/iskra/iskra.x";
-#[cfg(all(feature = "pc", feature = "none"))]
+#[cfg(all(feature = "pc", feature = "i386", feature = "none"))]
 const MEMORY_X: &str = "hw/pc/pc.x";
+#[cfg(feature = "linux")]
+const MEMORY_X: &str = "os/linux/linux.x";
 
 fn main() {
     if Path::new(MEMORY_X).exists() {
