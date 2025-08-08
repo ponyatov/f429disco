@@ -27,7 +27,8 @@ runner = [
     'qemu-system-arm',
     '-machine','netduino2','-cpu','cortex-m3',
     '-nographic','-semihosting-config','enable=on,target=native',
-    '-s','-S','-kernel'
+    # '-s','-S',
+    '-kernel'
 ]
 rustflags = [
     "-C", "link-arg=-Tlink.x",
@@ -40,7 +41,8 @@ runner = [
     'qemu-system-arm',
     '-machine','netduinoplus2','-cpu','cortex-m4',
     '-nographic','-semihosting-config','enable=on,target=native',
-    '-s','-S','-kernel'
+    # '-s','-S',
+    '-kernel'
 ]
 rustflags = [
     "-C", "link-arg=-Tlink.x",

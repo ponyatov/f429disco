@@ -23,10 +23,10 @@
             "problemMatcher" : []
         },
         {
-            "label"          : "cargo: main",
+            "label"          : "cargo: linux",
             "type"           : "shell",
             "command"        : "cargo",
-            "args"           : ["watch","-x","run --bin main --features=pc --target x86_64-unknown-linux-gnu -- lib/${workspaceFolderBasename}.ini"],
+            "args"           : ["watch","-x","run --bin linux --features=pc --target x86_64-unknown-linux-gnu -- lib/${workspaceFolderBasename}.ini"],
             "options"        : {"cwd": "${workspaceFolder}"},
             "problemMatcher" : ["$rustc"],
             "group"          : {"kind": "build", "isDefault": true },
@@ -36,7 +36,7 @@
             "label"          : "cargo: f429disco",
             "type"           : "shell",
             "command"        : "cargo",
-            "args"           : ["watch","-x","run --bin main --features=f429disco --target thumbv7em-none-eabihf"],
+            "args"           : ["watch","-x","run --bin f429disco --features=f429disco --target thumbv7em-none-eabihf"],
             "options"        : {"cwd": "${workspaceFolder}"},
             "problemMatcher" : ["$rustc"],
             "group"          : {"kind": "build", "isDefault": true },
