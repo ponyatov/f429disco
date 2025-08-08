@@ -7,8 +7,8 @@ use f429disco::*;
 use panic_semihosting as _;
 
 #[entry]
-fn main() {
+fn main() -> ! {
     hprintln!("{} ver:{}", ABOUT, VERSION);
     hprintln!("(c) {} <{}> {} {}", AUTHOR, EMAIL, YEAR, LICENSE,);
-    // loop {}
+    loop {}
 }
