@@ -10,7 +10,7 @@ const MEMORY_X: &str = "hw/l496disco/l496disco.x";
 const MEMORY_X: &str = "hw/netduinoplus2/netduinoplus2.x";
 #[cfg(feature = "iskra")]
 const MEMORY_X: &str = "hw/iskra/iskra.x";
-#[cfg(feature = "pc")]
+#[cfg(all(feature = "pc", feature = "none"))]
 const MEMORY_X: &str = "hw/pc/pc.x";
 
 fn main() {
